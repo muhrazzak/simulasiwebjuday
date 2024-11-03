@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulasi Judi Online - Admin</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .container {
+            text-align: center;
+            margin-top: 50px;
+        }
+        
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            background-color: #007BFF;
+            color: #ffffff;
+        }
+        
+        .set-button {
+            margin-top: 20px;
+            background-color: #28a745;
+        }
+        
+        .logout-button, .back-button {
+            background-color: #6c757d;
+            margin-top: 10px;
+        }
+
+        .info {
+            font-size: 18px;
+            color: #333;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Area Admin</h1>
+        
+        <p>Pilih Angka Kemenangan:</p>
+        <div class="button-container">
+            <!-- Tombol pilihan angka -->
+            <button onclick="setWinningNumber(1)">1</button>
+            <button onclick="setWinningNumber(2)">2</button>
+            <button onclick="setWinningNumber(3)">3</button>
+            <button onclick="setWinningNumber(4)">4</button>
+            <button onclick="setWinningNumber(5)">5</button>
+        </div>
+
+        <!-- Informasi angka kemenangan yang dipilih -->
+        <p id="infoMessage" class="info">Angka kemenangan saat ini: <span id="currentWinningNumber">-</span></p>
+        
+        <button class="logout-button" onclick="logout()">Keluar</button>
+        <button class="back-button" onclick="location.href='index.html'">Kembali ke Beranda</button>
+
+        <script>
+            // Mendapatkan angka kemenangan dari localStorage saat halaman dimuat
+            function updateWinningNumberDisplay() {
+                const winningNumber = localStorage.getItem("winningNumber") || "-";
+                document.getElementById("currentWinningNumber").innerText = winningNumber;
+            }
+
+            function setWinningNumber(number) {
+                // Menyimpan angka kemenangan ke localStorage
+                localStorage.setItem("winningNumber", number);
+                alert(`Angka kemenangan diatur menjadi ${number}`);
+                updateWinningNumberDisplay(); // Memperbarui tampilan angka kemenangan
+            }
+
+            function logout() {
+                window.location.href = "index.html"; // Redirect ke beranda
+            }
+
+            // Memperbarui tampilan angka kemenangan saat halaman dimuat
+            updateWinningNumberDisplay();
+        </script>
+    </div>
+</body>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulasi Judi Online - Beranda</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Selamat Datang di Simulasi Judi Online</h1>
+        
+        <button onclick="showAdminLoginForm()">Masuk sebagai Admin</button>
+        <button onclick="showUserLoginForm()">Masuk sebagai User</button>
+        
+        <div class="login-form" id="adminLoginForm" style="display:none;">
+            <h3>Login Admin</h3>
+            <input type="text" id="adminUsername" placeholder="Username" required onkeypress="checkEnter(event, 'admin')">
+            <input type="password" id="adminPassword" placeholder="Password" required onkeypress="checkEnter(event, 'admin')">
+            <button onclick="adminLogin()">Masuk</button>
+            <p id="adminLoginMessage"></p>
+        </div>
+
+        <div class="login-form" id="userLoginForm" style="display:none;">
+            <h3>Login User</h3>
+            <input type="text" id="userUsername" placeholder="Username" required onkeypress="checkEnter(event, 'user')">
+            <input type="password" id="userPassword" placeholder="Password" required onkeypress="checkEnter(event, 'user')">
+            <button onclick="userLogin()">Masuk</button>
+            <p id="userLoginMessage"></p>
+        </div>
+    </div>
+
+    <script>
+        function showAdminLoginForm() {
+            document.getElementById('adminLoginForm').style.display = 'block';
+            document.getElementById('userLoginForm').style.display = 'none';
+            document.getElementById('adminLoginForm').style.opacity = 0;
+            setTimeout(() => {
+                document.getElementById('adminLoginForm').style.opacity = 1;
+            }, 0);
+        }
+
+        function showUserLoginForm() {
+            document.getElementById('userLoginForm').style.display = 'block';
+            document.getElementById('adminLoginForm').style.display = 'none';
+            document.getElementById('userLoginForm').style.opacity = 0;
+            setTimeout(() => {
+                document.getElementById('userLoginForm').style.opacity = 1;
+            }, 0);
+        }
+
+        function adminLogin() {
+            const username = document.getElementById('adminUsername').value;
+            const password = document.getElementById('adminPassword').value;
+
+            const validUsername = "admin";
+            const validPassword = "admin";
+
+            if (username === validUsername && password === validPassword) {
+                window.location.href = "admin.html";
+            } else {
+                document.getElementById('adminLoginMessage').innerText = "Username atau password admin salah.";
+            }
+        }
+
+        function userLogin() {
+            const username = document.getElementById('userUsername').value;
+            const password = document.getElementById('userPassword').value;
+
+            const validUsername = "user";
+            const validPassword = "user";
+
+            if (username === validUsername && password === validPassword) {
+                window.location.href = "play.html";
+            } else {
+                document.getElementById('userLoginMessage').innerText = "Username atau password user salah.";
+            }
+        }
+
+        function checkEnter(event, role) {
+            if (event.key === 'Enter') {
+                if (role === 'admin') {
+                    adminLogin();
+                } else if (role === 'user') {
+                    userLogin();
+                }
+            }
+        }
+    </script>
+</body>
+</html>

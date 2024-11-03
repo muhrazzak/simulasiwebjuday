@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulasi Judi Online - Main</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .button-container {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        button {
+            padding: 20px;
+            font-size: 20px;
+            cursor: pointer;
+            border: 2px solid #007BFF;
+            border-radius: 8px;
+            background-color: #ffffff;
+            color: #007BFF;
+            outline: none;
+        }
+
+        button:disabled {
+            background-color: #f0f0f0;
+            border-color: #cccccc;
+            color: #999999;
+            cursor: not-allowed;
+        }
+
+        .stats {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+
+        .reset-button {
+            margin-top: 10px;
+            padding: 10px;
+            font-size: 16px;
+            border: 2px solid #FF0000;
+            background-color: #FFCCCC;
+            color: #FF0000;
+            cursor: pointer;
+            border-radius: 8px;
+            outline: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Permainan Simulasi Judi Online</h1>
+        
+        <p>Pilih angka dari 1 sampai 5:</p>
+        <div class="button-container">
+            <button onclick="chooseNumber(1)">1</button>
+            <button onclick="chooseNumber(2)">2</button>
+            <button onclick="chooseNumber(3)">3</button>
+            <button onclick="chooseNumber(4)">4</button>
+            <button onclick="chooseNumber(5)">5</button>
+        </div>
+
+        <p>Angka yang dipilih: <span id="selectedNumber">-</span></p>
+        <button id="playButton" onclick="playGame()" disabled>Mainkan!</button>
+        <p id="resultMessage"></p>
+        <button onclick="logout()">Keluar</button>
+        <button class="reset-button" onclick="resetStats()">Reset Statistik</button>
+
+        <div class="stats">
+            <p>Total Kemenangan: <span id="totalWins">0</span></p>
+            <p>Total Kekalahan: <span id="totalLosses">0</span></p>
+        </div>
+    </div>
+
+    <script>
+        let chosenNumber = null;
+
+        // Memeriksa dan menginisialisasi statistik dari localStorage
+        let totalWins = parseInt(localStorage.getItem('totalWins')) || 0;
+        let totalLosses = parseInt(localStorage.getItem('totalLosses')) || 0;
+
+        // Menampilkan statistik di halaman
+        document.getElementById('totalWins').innerText = totalWins;
+        document.getElementById('totalLosses').innerText = totalLosses;
+
+        function chooseNumber(number) {
+            chosenNumber = number;
+            document.getElementById('selectedNumber').innerText = chosenNumber;
+            document.getElementById('playButton').disabled = false;
+        }
+
+        function playGame() {
+            if (chosenNumber) {
+                const winningNumber = parseInt(localStorage.getItem('winningNumber'));
+                
+                if (chosenNumber === winningNumber) {
+                    document.getElementById('resultMessage').innerText = "Selamat! Anda menang!";
+                    totalWins++;
+                    localStorage.setItem('totalWins', totalWins);
+                } else {
+                    document.getElementById('resultMessage').innerText = "Maaf, Anda kalah. Angka kemenangan adalah " + winningNumber;
+                    totalLosses++;
+                    localStorage.setItem('totalLosses', totalLosses);
+                }
+
+                document.getElementById('totalWins').innerText = totalWins;
+                document.getElementById('totalLosses').innerText = totalLosses;
+            }
+        }
+
+        function resetStats() {
+            if (confirm("Apakah Anda yakin ingin mereset statistik?")) {
+                totalWins = 0;
+                totalLosses = 0;
+                localStorage.setItem('totalWins', totalWins);
+                localStorage.setItem('totalLosses', totalLosses);
+                document.getElementById('totalWins').innerText = totalWins;
+                document.getElementById('totalLosses').innerText = totalLosses;
+                document.getElementById('resultMessage').innerText = "";
+                document.getElementById('selectedNumber').innerText = "-";
+                document.getElementById('playButton').disabled = true;
+                chosenNumber = null;
+            }
+        }
+
+        function logout() {
+            if (confirm("Apakah Anda yakin ingin keluar?")) {
+                window.location.href = "index.html";
+            }
+        }
+    </script>
+</body>
+</html>

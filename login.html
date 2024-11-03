@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Admin</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="login-container">
+        <h2>Login Admin</h2>
+        <form onsubmit="return login(event)">
+            <label for="username">Username:</label>
+            <input type="text" id="username" required>
+            <label for="password">Password:</label>
+            <input type="password" id="password" required>
+            <button type="submit">Login</button>
+        </form>
+        <p id="loginMessage"></p>
+    </div>
+
+    <script>
+        function login(event) {
+            event.preventDefault();
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
+
+            // Simulasi login sederhana
+            if (username === "admin" && password === "admin123") {
+                localStorage.setItem("isLoggedIn", true);
+                window.location.href = "admin.html"; // Redirect ke halaman admin
+            } else {
+                document.getElementById("loginMessage").innerText = "Username atau password salah.";
+            }
+        }
+    </script>
+</body>
+</html>
